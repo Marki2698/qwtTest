@@ -6,14 +6,16 @@
 
 #include <QEvent>
 
-class MyMachine : public QwtPickerMachine {
+class DragAndDeletePointMachine : public QwtPickerMachine {
 public:
-    explicit MyMachine(): QwtPickerMachine(SelectionType::PointSelection), selection(SelectionType::PointSelection) {}
-    ~MyMachine() {};
+    explicit DragAndDeletePointMachine(): QwtPickerMachine(SelectionType::PointSelection), selection(SelectionType::PointSelection) {}
+    ~DragAndDeletePointMachine() {};
     QList<Command> transition(const QwtEventPattern& pattern, const QEvent* ev) override;
 private:
     SelectionType selection = SelectionType::NoSelection;
     int state = 0;
     QList<Command> commands;
+    bool leftWithCTRL = false;
+    bool rightClicked = false;
 };
 #endif // MYMACHINE_H

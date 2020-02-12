@@ -16,13 +16,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    drag_and_delete_point_machine.cpp \
     main.cpp \
     mainwindow.cpp \
-    mymachine.cpp
+    utilities.cpp
 
 HEADERS += \
+    drag_and_delete_point_machine.h \
     mainwindow.h \
-    mymachine.h
+    utilities.h
 
 FORMS += \
     mainwindow.ui
@@ -32,7 +34,11 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-unix:!macx: LIBS += -L/usr/local/qwt-6.1.4/lib/ -lqwt
 
-INCLUDEPATH += /usr/local/qwt-6.1.4/include
-DEPENDPATH += /usr/local/qwt-6.1.4/include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../usr/local/qwt-6.1.4/lib/release/ -lqwt
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../usr/local/qwt-6.1.4/lib/debug/ -lqwt
+else:unix: LIBS += -L$$PWD/../../../../../usr/local/qwt-6.1.4/lib/ -lqwt
+
+INCLUDEPATH += $$PWD/../../../../../usr/local/qwt-6.1.4/include
+DEPENDPATH += $$PWD/../../../../../usr/local/qwt-6.1.4/include
